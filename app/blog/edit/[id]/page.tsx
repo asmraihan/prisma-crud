@@ -58,14 +58,16 @@ const EditBlog = ({ params }: { params: { id: string } }) => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (titleRef.current && descriptionRef.current) {
-            toast.loading("Posting blog 🚀", { id: "1" });
+            toast.loading("Updating blog 🚀", { id: "1" });
             await updateBlog({
                 title: titleRef.current?.value,
                 description: descriptionRef.current?.value,
                 id: params.id
             });
-            toast.success("Posted Successfully", { id: "1" });
+            toast.success("Updated Successfully", { id: "1" });
+            router.refresh();
             router.push("/");
+            
         }
     };
 

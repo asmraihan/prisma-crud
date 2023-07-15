@@ -2,10 +2,7 @@ import Link from "next/link"
 
 async function fetchBlogs() {
   const res = await fetch('http://localhost:3000/api/blog', {
-    next: {
-      revalidate: 4,
-    },
-    // cache: "no-cache",
+    cache: "no-cache",
   })
   const data = await res.json()
   return data.posts
