@@ -3,7 +3,7 @@ import Link from "next/link"
 async function fetchBlogs() {
   const res = await fetch('http://localhost:3000/api/blog', {
     next: {
-      revalidate: 10,
+      revalidate: 4,
     },
     // cache: "no-cache",
   })
@@ -29,23 +29,23 @@ export default async function Home() {
       <div className="w-full flex flex-col justify-center items-center">
         {
           posts?.map((post: any) => (
-            <div key={post.id} className="w-3/4 p-4 rounded-md mx-3 my-4 bg-slate-200 flex flex-col ">
+            <div key={post.id} className="w-3/4 p-4 rounded-md mx-3 my-4 bg-slate-900 flex flex-col ">
               <div className="flex items-center my-3 ">
                 <div className="mr-auto">
-                  <h2 className="mr-auto font-semibold">
+                  <h2 className="mr-auto text-slate-200 font-semibold">
                     {post.title}
                   </h2>
                 </div>
                 <div className="">
-              <Link href={`/blog/edit/${post.id}`} className="px-4 py-1 text-center text-lg bg-slate-900 rounded-md font-semibold text-slate-200">
+              <Link href={`/blog/edit/${post.id}`} className="px-4 py-1 text-center text-lg bg-slate-800 rounded-md font-semibold text-slate-200">
               Edit
               </Link>
                 </div>
               </div>
               <div className="mr-auto my-1 ">
-              <blockquote className="font-bold text-slate-700">{new Date(post.date).toDateString()}</blockquote>
+              <blockquote className="font-bold text-slate-400">{new Date(post.date).toDateString()}</blockquote>
               </div>
-              <div className="mr-auto my-1 ">
+              <div className="mr-auto my-1 text-slate-200">
                 <h2>{post.description}</h2>
               </div>
             </div>
