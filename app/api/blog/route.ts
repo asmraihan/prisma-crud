@@ -1,8 +1,9 @@
 import prisma from "@/prisma";
 import { NextResponse } from "next/server";
 
+//step6. make api routes
 
-async function main() {
+export async function main() {
     try {
         await prisma.$connect()
     } catch (error) {
