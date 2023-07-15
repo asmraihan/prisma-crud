@@ -32,12 +32,22 @@ export const PUT = async (req: Request, res: NextResponse) => {
         return NextResponse.json({ message: "Success single post update", post }, { status: 200 })
         // 
     } catch (error) {
-        return NextResponse.json({ message: "Error fetching single post", error }, { status: 500 })
+        return NextResponse.json({ message: "Error updating single post", error }, { status: 500 })
     } finally {
         await prisma.$disconnect()
     }
 }
 //to DELETE single post
 export const DELETE = async (req: Request, res: NextResponse) => {
-
+    try {
+        const id = req.url.split("/blog/")[1]
+        await main()
+        const post = await prisma.post.delete({ where: { id } })
+        return NextResponse.json({ message: "Success single post delete", post }, { status: 200 })
+        // 
+    } catch (error) {
+        return NextResponse.json({ message: "Error deleting single post", error }, { status: 500 })
+    } finally {
+        await prisma.$disconnect()
+    }
 }
