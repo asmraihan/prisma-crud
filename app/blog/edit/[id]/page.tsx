@@ -19,6 +19,14 @@ const updateBlog = async (data: updateBlogParams) => {
     });
     return res.json();
 };
+const deleteBlog = async (id:string) => {
+    const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+        method: "DELETE",
+        //@ts-ignore
+        "Content-Type": "application/json",
+    });
+    return res.json();
+};
 
 const getBlogById = async (id: string) => {
     const res = await fetch(`http://localhost:3000/api/blog/${id}`);
@@ -44,7 +52,7 @@ const EditBlog = ({ params }: { params: { id: string } }) => {
             console.log(err)
             toast.error("Error Fetching", { id: "1" });
         })
-    }, [])
+    }, [params.id])
 
 
     const handleSubmit = async (e: any) => {
@@ -60,6 +68,13 @@ const EditBlog = ({ params }: { params: { id: string } }) => {
             router.push("/");
         }
     };
+
+    const handleDelete = async () => {
+        toast.loading("Deleting blog 🚀", { id: "2" });
+        await deleteBlog(params.id);
+        toast.success("Deleted Successfully", { id: "2" });
+        router.push("/");
+    }
     return (
         <>
             <div className="w-fit mx-4 p-4 my-5 rounded-lg bg-slate-800 shadow-xl">
@@ -83,17 +98,18 @@ const EditBlog = ({ params }: { params: { id: string } }) => {
                         <textarea
                             ref={descriptionRef}
                             placeholder="Enter Description"
-                            className="rounded-md px-4 py-2 w-full my-2"
+                            className="rounded-md px-4 py-2 h-[300px] w-full my-2"
                         ></textarea>
                         <div className="flex justify-between">
                             <button className="font-semibold px-4 py-2 shadow-xl bg-slate-200 rounded-lg m-auto hover:bg-slate-100">
                                 Update
                             </button>
-                            <button className="font-semibold px-4 py-2 shadow-xl bg-slate-200 rounded-lg m-auto hover:bg-slate-100">
-                                Update
-                            </button>
+                         
                         </div>
                     </form>
+                    <button onClick={handleDelete} className="font-semibold px-4 py-2 shadow-xl bg-red-500 hover:bg-red-600 my-4 rounded-lg m-auto">
+                                Delete
+                            </button> 
                 </div>
             </div>
         </>
